@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory} from "vue-router"
-
 import ListCategory from  "@/pages/list/ListCategory"
 import ListType from  "@/pages/list/ListType"
 import ListElement from "@/pages/list/ListElement"
 import BasePage from "@/pages/list/BasePage"
 import BasePageDetail from "@/pages/detail/BasePageDetail"
 import DetailElement from "@/pages/detail/DetailElement"
+import SaveCategory from "@/pages/save/SaveCategory"
+import BasePageSave from "@/pages/save/BasePageSave"
 
 const routes = [
+    {
+        name: 'home',
+        path: '/',
+        component: ListElement
+    },
     {
         path: '/list',
         componet:BasePage,
@@ -37,6 +43,17 @@ const routes = [
                 name: 'detail-element',
                 path: 'element/:slug?',
                 component: DetailElement
+            }
+        ]
+    },
+    {
+        path: '/save',
+        componet:BasePageSave,
+        children:[
+            {
+                name: 'save-category',
+                path: 'category',
+                component: SaveCategory
             }
         ]
     }
