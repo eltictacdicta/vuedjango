@@ -14,6 +14,7 @@
 export default {
     data(){
         return {
+            category:"",
             form:{
                 title: "",
                 url_clean: ""
@@ -24,18 +25,50 @@ export default {
             }
         }
     },
+    async mounted(){
+        if(this.$route.params.id){
+            await this.getCategory()
+            this.initCategory()
+        }
+
+    },
     methods:{
+        async getCategory(){
+            const respuesta = await this.$axios.get("http://127.0.0.1:8000/api/category/"+this.$route.params.id+"/?format=json")
+            this.category=respuesta.data
+            console.log(this.category)
+        },
+        initCategory(){
+            this.form.title = this.category.title
+            this.form.url_clean = this.category.url_clean
+        },
         submit(){
             this.cleanForm()
-            this.$axios.post("http://127.0.0.1:8000/api/category/",this.form).then((res) => {
-                console.log(res.data)
-            })
-            .catch((error) => {
-                if(error.response.data.title)
-                    this.errors.title = error.response.data.title[0]
-                if(error.response.data.url_clean)
-                    this.errors.url_clean = error.response.data.url_clean[0]
-            })
+            if(this.category=="")
+            {
+                this.$axios.post("http://127.0.0.1:8000/api/category/?format=json",this.form).then((res) => {
+                    console.log(res.data)
+                })
+                .catch((error) => {
+                    if(error.response.data.title)
+                        this.errors.title = error.response.data.title[0]
+                    if(error.response.data.url_clean)
+                        this.errors.url_clean = error.response.data.url_clean[0]
+                })
+            }
+            else
+            {
+                this.$axios.put("http://127.0.0.1:8000/api/category/"+this.$route.params.id+"/?format=json",this.form).then((res) => {
+                    console.log(res.data)
+                })
+                .catch((error) => {
+                    if(error.response.data.title)
+                        this.errors.title = error.response.data.title[0]
+                    if(error.response.data.url_clean)
+                        this.errors.url_clean = error.response.data.url_clean[0]
+                })
+            }
+            
         },
         cleanForm(){
             this.errors.title=""

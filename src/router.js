@@ -52,7 +52,7 @@ const routes = [
         children:[
             {
                 name: 'save-category',
-                path: 'category',
+                path: 'category/:id?',
                 component: SaveCategory
             }
         ]
