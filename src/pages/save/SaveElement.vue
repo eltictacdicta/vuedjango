@@ -26,18 +26,8 @@
 export default {
     data(){
         return {
-            options_categories:[
-                {
-                    label:"Cate 1",
-                    value:"1"
-                }
-            ],
-            options_types:[
-                {
-                    label:"Tipo 1",
-                    value:"1"
-                }
-            ],
+            options_categories:[],
+            options_types:[],
             element:"",
             form:{
                 title: "",
@@ -57,8 +47,10 @@ export default {
         if(this.$route.params.id){
             await this.getElement()
             this.initElement()
+            
         }
-
+        this.categories()
+        this.types()
     },
     methods:{
         async getElement(){
@@ -71,6 +63,26 @@ export default {
             this.form.url_clean = this.element.url_clean
             this.form.description = this.element.description
             this.form.price =  parseFloat(this.element.price)
+        },
+        categories(){
+            this.$axios.get("http://127.0.0.1:8000/api/category/all/?format=json").then((res)=>{
+                this.options_categories = res.data.map(c => {
+                    return {
+                        label: c.title,
+                        value: c.id
+                    }
+                })
+            })
+        },
+        types(){
+            this.$axios.get("http://127.0.0.1:8000/api/type/all/?format=json").then((res)=>{
+                this.options_types = res.data.map(t => {
+                    return {
+                        label: t.title,
+                        value: t.id
+                    }
+                })
+            })
         },
         submit(){
             this.cleanForm()
