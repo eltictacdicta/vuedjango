@@ -7,6 +7,7 @@ import BasePageDetail from "@/pages/detail/BasePageDetail"
 import DetailElement from "@/pages/detail/DetailElement"
 import SaveCategory from "@/pages/save/SaveCategory"
 import SaveType from "@/pages/save/SaveType"
+import SaveElement from "@/pages/save/SaveElement"
 import BasePageSave from "@/pages/save/BasePageSave"
 
 const routes = [
@@ -60,6 +61,11 @@ const routes = [
                 name: 'save-type',
                 path: 'type/:id?',
                 component: SaveType
+            },
+            {
+                name: 'save-element',
+                path: 'element/:id?',
+                component: SaveElement
             }
         ]
     }

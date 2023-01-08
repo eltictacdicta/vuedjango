@@ -1,8 +1,7 @@
 <template>
-    <!-- <n-button type="primary">
-        <router-link :to="{ name:'list-types' }">Tipos</router-link>
-    </n-button> -->
-    
+    <n-button type="primary">
+        <router-link :to="{ name:'save-element' }">Crear</router-link>
+    </n-button>
     <n-table :single-line="false" class="my-table">
         <thead>
             <tr>
@@ -16,7 +15,9 @@
                 <td>{{ e.title }}</td>
                 <td><n-button type="primary">
                         <router-link :to="{ name:'detail-element',params:{ slug:e.url_clean} }">Ver</router-link>
-                    </n-button></td>
+                    </n-button>
+                    <router-link :to="{ name:'save-element',params:{ id:e.id} }">Editar</router-link>
+                </td>
             </tr>
             
         </tbody>
