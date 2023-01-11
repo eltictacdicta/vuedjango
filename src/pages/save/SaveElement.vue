@@ -7,13 +7,13 @@
         <n-input :status="errors.url_clean == '' ? 'success' : 'error'" placeholder="Url limpia" v-model:value="form.url_clean" type="text" />
     </n-form-item>
     <n-form-item label="Descripción" :feedback="errors.description" :validation-status="errors.description == '' ? 'success' : 'error'">
-        <n-input :status="errors.description == '' ? 'success' : 'error'" placeholder="Url limpia" v-model:value="form.description" type="textarea" />
+        <n-input :status="errors.description == '' ? 'success' : 'error'" placeholder="Descripción" v-model:value="form.description" type="textarea" />
     </n-form-item>
     <n-form-item label="Categoría" :feedback="errors.category_id" :validation-status="errors.category_id == '' ? 'success' : 'error'">
-        <n-select :status="errors.category_id == '' ? 'success' : 'error'"  v-model:value="form.category_id" :options="options_categories"  />
+        <n-select :status="errors.category_id == '' ? 'success' : 'error'"  v-model:value="form.category_id" :options="options_categories" type="textarea" />
     </n-form-item>
     <n-form-item label="Tipo" :feedback="errors.type_id" :validation-status="errors.type_id == '' ? 'success' : 'error'">
-        <n-select :status="errors.type_id == '' ? 'success' : 'error'"  v-model:value="form.tyep_id" :options="options_types"  />
+        <n-select :status="errors.type_id == '' ? 'success' : 'error'"  v-model:value="form.tyep_id" :options="options_types" type="textarea" />
     </n-form-item>
     <n-form-item label="Precio" :feedback="errors.price" :validation-status="errors.price == '' ? 'success' : 'error'">
         <n-input-number :status="errors.price == '' ? 'success' : 'error'" v-model:value=form.price  />
@@ -33,12 +33,16 @@ export default {
                 title: "",
                 url_clean: "",
                 description: "",
+                category_id: "",
+                type_id: "",
                 price: 0
             },
             errors:{
                 title: "",
                 url_clean: "",
                 description: "",
+                category_id: "",
+                type_id: "",
                 price: ""
             }
         }
@@ -63,6 +67,8 @@ export default {
             this.form.url_clean = this.element.url_clean
             this.form.description = this.element.description
             this.form.price =  parseFloat(this.element.price)
+            this.form.category_id = this.element.category.id;
+            this.form.type_id = this.element.type.id;
         },
         categories(){
             this.$axios.get("http://127.0.0.1:8000/api/category/all/?format=json").then((res)=>{
@@ -88,6 +94,7 @@ export default {
             this.cleanForm()
             if(this.element=="")
             {
+  
                 this.$axios.post("http://127.0.0.1:8000/api/element/?format=json",this.form).then((res) => {
                     console.log(res.data)
                 })
@@ -100,6 +107,10 @@ export default {
                         this.errors.description = error.response.description[0]
                     if(error.response.data.price)
                         this.errors.price = error.response.price[0]
+                    if (error.response.data.category_id)
+                        this.errors.category_id = error.response.data.category_id[0];
+                    if (error.response.data.type_id)
+                        this.errors.type_id = error.response.data.type_id[0];
                 })
             }
             else
@@ -116,6 +127,10 @@ export default {
                         this.errors.description = error.response.data.description[0]
                     if(error.response.data.description)
                         this.errors.price = error.response.data.price[0]
+                    if (error.response.data.category_id)
+                        this.errors.category_id = error.response.data.category_id[0];
+                    if (error.response.data.type_id)
+                        this.errors.type_id = error.response.data.type_id[0];
                 })
             }
             
