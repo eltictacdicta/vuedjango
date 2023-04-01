@@ -13,7 +13,7 @@
         <n-select :status="errors.category_id == '' ? 'success' : 'error'"  v-model:value="form.category_id" :options="options_categories" type="textarea" />
     </n-form-item>
     <n-form-item label="Tipo" :feedback="errors.type_id" :validation-status="errors.type_id == '' ? 'success' : 'error'">
-        <n-select :status="errors.type_id == '' ? 'success' : 'error'"  v-model:value="form.tyep_id" :options="options_types" type="textarea" />
+        <n-select :status="errors.type_id == '' ? 'success' : 'error'"  v-model:value="form.type_id" :options="options_types" type="textarea" />
     </n-form-item>
     <n-form-item label="Precio" :feedback="errors.price" :validation-status="errors.price == '' ? 'success' : 'error'">
         <n-input-number :status="errors.price == '' ? 'success' : 'error'" v-model:value=form.price  />
@@ -92,9 +92,9 @@ export default {
         },
         submit(){
             this.cleanForm()
-            if(this.element=="")
+            if(this.element=="")    
             {
-  
+                //console.log(JSON.stringify(this.form))
                 this.$axios.post("http://127.0.0.1:8000/api/element/?format=json",this.form).then((res) => {
                     console.log(res.data)
                 })
