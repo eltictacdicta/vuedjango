@@ -7,7 +7,8 @@
         <n-input :status="errors.url_clean == '' ? 'success' : 'error'" placeholder="Url limpia" v-model:value="form.url_clean" type="text" />
     </n-form-item>
     <n-form-item label="Descripción" :feedback="errors.description" :validation-status="errors.description == '' ? 'success' : 'error'">
-        <n-input :status="errors.description == '' ? 'success' : 'error'" placeholder="Descripción" v-model:value="form.description" type="textarea" />
+        <!-- <n-input :status="errors.description == '' ? 'success' : 'error'" placeholder="Descripción" v-model:value="form.description" type="textarea" /> -->
+        <ckeditor :editor="editor.editor" v-model="form.description"></ckeditor>
     </n-form-item>
     <n-form-item label="Categoría" :feedback="errors.category_id" :validation-status="errors.category_id == '' ? 'success' : 'error'">
         <n-select :status="errors.category_id == '' ? 'success' : 'error'"  v-model:value="form.category_id" :options="options_categories" type="textarea" />
@@ -23,9 +24,14 @@
 </template>
 
 <script>
+
+import  CKEditor from '@ckeditor/ckeditor5-build-classic'
 export default {
     data(){
         return {
+            editor:{
+                editor:CKEditor
+            },
             options_categories:[],
             options_types:[],
             element:"",
