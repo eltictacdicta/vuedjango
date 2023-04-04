@@ -5,14 +5,20 @@
     <n-table :single-line="false" class="my-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Titulo</th>
+                <th>Precio</th>
+                <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
             
         </thead>
         <tbody>
             <tr v-for="e in elements" :key="e.id">
+                <td>{{ e.id }}</td>
                 <td>{{ e.title }}</td>
+                <td>{{ e.price }}</td>
+                <td>{{ e.created }}</td>
                 <td><n-button type="primary">
                         <router-link :to="{ name:'detail-element',params:{ slug:e.url_clean} }">Ver</router-link>
                     </n-button>
